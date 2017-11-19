@@ -15,7 +15,7 @@
 ## Introduction to CPTCLD
 CPTCLD aims at reducing charging loss in LTE D2D communication caused by users' misbehavior (e.g., a UE uses RB allocated for voice communication, which might be free and unlimited in the monthly plan, to transmit other data like FTP files). Since the data flow normally will not go through BS in LTE D2D communication and it is the UE that is cheating, it is unrealistic to rely on the self-reports from UE because the cheaters will always provide the false information. Therefore, CPTCLD attacks this problem by classifying service into different traffic patterns, allocating RB based on Request and charging based on RB allocation.
 
-## CPTCLD Consists of Three Parts
+## Three Main Parts of CPTCLD
 ### 1.  Traffic Pattern Table
 CPTCLD classifies traffic patterns in LTE D2D communication into three main categories: Stream, Message and File, which are further classified into different subtypes (e.g., Stream1, Stream2, Stream3...). Every entry in the Traffic Pattern Table contains the specific pattern type and its attributes (e.g., Priority, Bandwidth, Delay, MaxReqSize, Price/RB). Here is and example of Traffic Pattern Table we used for our experiment:
 
