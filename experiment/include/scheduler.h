@@ -1,8 +1,9 @@
 #ifndef _SCHEDULER_H
 #define _SCHEDULER_H
 
+#include <vector>
 #include "allocation.h"
-#include "requests.h"
+#include "request.h"
 
 class Scheduler {
 protected:

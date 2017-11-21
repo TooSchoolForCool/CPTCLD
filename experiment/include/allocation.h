@@ -2,6 +2,9 @@
 #define _ALLOCATION_H
 
 #include <unordered_map>
+#include <vector>
+
+using namespace std;
 
 struct Allocation {
     int total_RB;
