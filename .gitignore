@@ -30,3 +30,6 @@
 *.out
 *.app
 launch
+
+# Testresult Folder
+testresult/
