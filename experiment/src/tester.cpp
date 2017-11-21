@@ -24,6 +24,7 @@ int Tester::RunTest(string scheduling_algorithm, string testcase_file, string re
 }
 
 int Tester::ReadTestcase(string testcase_file) {
+    // Clear all the complex variables before reading.
     traffic_pattern_table.clear();
     utility_rate.clear();
     requests.clear();
@@ -36,8 +37,9 @@ int Tester::ReadTestcase(string testcase_file) {
         return -1;
     }
 
+    // Start reading from testcase file.
     testcase >> num_channel;
-    testcase >> RB_time >> RB_size >> RB_bandwidth;
+    testcase >> rb_time >> rb_size >> rb_bandwidth;
 
     testcase >> num_pattern;
     string type;
@@ -45,16 +47,16 @@ int Tester::ReadTestcase(string testcase_file) {
     double bandwidth;
     double delay;
     double max_req_size;
-    double price_RB;
+    double price_rb;
     for (int i = 0; i < num_pattern; i++) {
-        testcase >> type >> priority >> bandwidth >> delay >> max_req_size >> price_RB;
-        traffic_pattern_table[type] = Pattern(priority, bandwidth, delay, max_req_size, price_RB);
+        testcase >> type >> priority >> bandwidth >> delay >> max_req_size >> price_rb;
+        traffic_pattern_table[type] = Pattern(priority, bandwidth, delay, max_req_size, price_rb);
     }
 
-    testcase >> num_UE;
+    testcase >> num_ue;
     int id;
     double rate;
-    for (int i = 0; i < num_UE; i++) {
+    for (int i = 0; i < num_ue; i++) {
         testcase >> id >> rate;
         utility_rate[id] = rate;
     }
@@ -76,8 +78,13 @@ int Tester::ReadTestcase(string testcase_file) {
 
 vector<Allocation> Tester::GetAllocation(string scheduling_algorithm) {
     Scheduler* scheduler;
-    if (scheduling_algorithm == "null") scheduler = new SchedulerNull(num_channel, RB_time, RB_size, RB_bandwidth);
-    else scheduler = new Scheduler(num_channel, RB_time, RB_size, RB_bandwidth);
+    // When a new scheduling algorithm is added, it must be included here.
+    //
+    // Example - to add a new class SchedulerNaive must add here:
+    //  else if (scheduling_algorithm == "naive") scheduler = new SchedulerNaive(num_channel, rb_time, rb_size, rb_bandwidth);
+    if (scheduling_algorithm == "null") scheduler = new SchedulerNull(num_channel, rb_time, rb_size, rb_bandwidth);
+    else scheduler = new Scheduler(num_channel, rb_time, rb_size, rb_bandwidth);
+
     vector<Allocation> allocations = scheduler->GetAllocation(requests, utility_rate);
     delete scheduler;
     return allocations;

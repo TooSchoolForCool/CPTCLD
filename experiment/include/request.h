@@ -1,7 +1,12 @@
 #ifndef _REQUEST_H
 #define _REQUEST_H
 
+// The Request struct stores the properties of a request.
+//
+// Example - creat a request:
+//  Request request(time, id , priority, bandwidth, delay, size);
 struct Request {
+    // Properties of a request
     double time;
     int id;
     int priority;

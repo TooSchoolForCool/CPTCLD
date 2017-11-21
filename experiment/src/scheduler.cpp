@@ -1,7 +1,7 @@
 #include "scheduler.h"
 
-Scheduler::Scheduler(int _num_channel, double _RB_time, double _RB_size, double _RB_bandwidth):
-    num_channel(_num_channel), RB_time(_RB_time), RB_size(_RB_size), RB_bandwidth(_RB_bandwidth) {}
+Scheduler::Scheduler(int _num_channel, double _rb_time, double _rb_size, double _rb_bandwidth):
+    num_channel(_num_channel), rb_time(_rb_time), rb_size(_rb_size), rb_bandwidth(_rb_bandwidth) {}
 
 vector<Allocation> Scheduler::GetAllocation(vector<Request>& requests, unordered_map<int, double>& utility_rate) {
     return vector<Allocation>(requests.size());
