@@ -50,7 +50,7 @@ e.g.
   ```
 
 ## Add a new scheduler algorithm
-e.g., add a new scheduler algorithm: naive:
+e.g., add a new scheduler algorithm - naive:
 
 1. Add the header file "scheduler_naive.h" to ./include/, containing the declaration of class SchedulerNaive.
     ```c++
