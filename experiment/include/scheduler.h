@@ -14,7 +14,7 @@ protected:
     double end_time;
 
 public:
-    Scheduler(int _num_channel, double _RB_time, double _RB_size, double _RB_bandwidth, double _start_time, double _end_time);
+    Scheduler(int _num_channel, double _RB_time, double _RB_size, double _RB_bandwidth);
     virtual vector<Allocation> GetAllocation(vector<Request>& requests, unordered_map<int, double>& utility_rate);
 };
 
