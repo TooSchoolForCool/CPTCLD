@@ -1,9 +1,8 @@
 # CPTCLD Experiment
 
-## Usage
-### Compile
+## Compile
 
-- Using Makefile
+### Using Makefile
 Get into experiment folder, and try following command:
 
 ```bash
@@ -18,19 +17,22 @@ Once compiling process is done and successful, you will see a prompt as followin
 
 More `make` commands please read Makefiles.
 
-- Manually Compile with g++
+### Manually Compile with g++
 > g++ -std=c++11 -I ./include main.cpp ./src/tester.cpp ./src/scheduler.cpp ./src/[customized scheduler]* -o [target file]
 
 e.g.
 > g++ -std=c++11 -I ./include main.cpp ./src/tester.cpp ./src/scheduler.cpp ./src/scheduler_null.cpp -o test.exe
 
-### Run
+## Run
 
 - 0 arg
 > ./launch
+
 - 1 arg
 > ./launch [scheduling algorithm]
+
 - 2 args
-> ./launch [scheduling algorithm][testcase]
+> ./launch [scheduling algorithm]  [testcase]
+
 - 3 args
-> ./launch [scheduling algorithm][testcase] [testresult]
+> ./launch [scheduling algorithm]  [testcase]  [testresult]
