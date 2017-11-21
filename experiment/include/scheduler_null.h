@@ -3,7 +3,8 @@
 
 #include "scheduler.h"
 
-// The SchedulerNull class derives from Scheduler with null scheduling algorithm that returns empty allocation for every request.
+// The SchedulerNull class derives from Scheduler.
+// It implements the null scheduling algorithm that returns empty allocation for every request.
 //
 // Example:
 //  Scheduler* scheduler = new SchedulerNull();
