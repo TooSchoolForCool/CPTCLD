@@ -4,6 +4,9 @@
 ### Compile
 > g++ -std=c++11 -I ./include main.cpp ./src/tester.cpp ./src/scheduler.cpp ./src/[customized scheduler]* -o [target file]
 
+e.g.
+> g++ -std=c++11 -I ./include main.cpp ./src/tester.cpp ./src/scheduler.cpp ./src/scheduler_null.cpp -o test.exe
+
 ### Run
 - 0 arg
 > ./main.exe
