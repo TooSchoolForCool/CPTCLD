@@ -3,9 +3,9 @@
 
 #include <unordered_map>
 #include <vector>
+#include <climits>
 
 using namespace std;
-
 
 // The Allocation class stores an allocation result for a request.
 // To create an Allocation, declare it and add RB intervals to it.
