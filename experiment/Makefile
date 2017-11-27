@@ -21,8 +21,11 @@ OBJS_DIR = obj
 # define dependent object files directory
 DEPEND_OBJS_DIR = src/obj
 
+# define dependent source files directory
+DEPEND_SRCS_DIR = src
+
 # define any compile-time flags
-CFLAGS = -Wall -g -std=c++11
+CFLAGS = -Wall -std=c++11
 
 # define any directories containing header files other than /usr/include
 # eg: INCLUDES = -I/home/newhall/include  -I../include
@@ -44,7 +47,7 @@ LFLAGS =
 LIBS =
 
 # define the C source files
-SRCS = main.cpp \
+SRCS = $(wildcard *.cpp)
 
 # define the C object files 
 #
@@ -57,9 +60,10 @@ SRCS = main.cpp \
 OBJS = $(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 
 # define dependent object files
-DEPEND_OBJS = $(DEPEND_OBJS_DIR)/scheduler.o \
-			  $(DEPEND_OBJS_DIR)/scheduler_null.o \
-			  $(DEPEND_OBJS_DIR)/tester.o
+DEPEND_OBJS = $(wildcard $(DEPEND_OBJS_DIR)/*.o)
+
+# define dependent object files
+DEPEND_SRCS := $(wildcard $(DEPEND_SRCS_DIR)/*.cpp)
 
 # define the executable file 
 TARGET = launch
@@ -73,11 +77,11 @@ TARGET = launch
 .PHONY: depend clean run
 
 all: $(TARGET)
-	@echo $(TARGET) has been succesfully compiled
-
-$(TARGET): $(OBJS)
-	$(MAKE) -C src
-	@$(CC) $(CFLAGS) $(INCLUDES) -o $(TARGET) $(OBJS) $(DEPEND_OBJS) $(LFLAGS) $(LIBS)
+	
+$(TARGET): $(OBJS) $(DEPEND_SRCS)
+	$(MAKE) -C $(DEPEND_SRCS_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(TARGET) $(OBJS) $(DEPEND_SRCS) $(LFLAGS) $(LIBS)
+	@echo [INFO]: $(TARGET) has been succesfully compiled
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
@@ -91,6 +95,12 @@ $(OBJS_DIR)/%.o: %.cpp
 run: $(TARGET)
 	./$(TARGET)
 
+run_null: $(TARGET)
+	./$(TARGET) null testcase_0.txt testresult_0_null.txt
+
+run_fg: $(TARGET)
+	./$(TARGET) fg testcase_0.txt testresult_0_fg.txt
+
 clean:
 	$(RM) -f $(OBJS_DIR)/*.o $(TARGET)
 	$(RM) -r $(OBJS_DIR)
@@ -101,5 +111,7 @@ depend: $(SRCS)
 	$(MAKE) -C src depend
 
 # DO NOT DELETE THIS LINE -- make depend needs it
+
 main.o: ./include/tester.h ./include/allocation.h ./include/pattern.h
 main.o: ./include/request.h ./include/scheduler.h ./include/scheduler_null.h
+main.o: ./include/scheduler_fg.h
