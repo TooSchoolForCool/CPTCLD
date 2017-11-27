@@ -16,7 +16,7 @@ RM = rm
 OBJS_DIR = obj
 
 # define any compile-time flags
-CFLAGS = -Wall -g -std=c++11
+CFLAGS = -Wall -std=c++11
 
 # define any directories containing header files other than /usr/include
 # eg: INCLUDES = -I/home/newhall/include  -I../include
@@ -38,9 +38,7 @@ LFLAGS =
 LIBS =
 
 # define the C source files
-SRCS = scheduler.cpp \
-       scheduler_null.cpp \
-       tester.cpp
+SRCS = $(wildcard *.cpp)
 
 # define the C object files 
 #
@@ -61,10 +59,7 @@ OBJS = $(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 .PHONY: depend
 
 all: $(OBJS)
-	@echo '$(OBJS)' has been succesfully compiled
-
-$(TARGET): $(OBJS) 
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(TARGET) $(OBJS) $(LFLAGS) $(LIBS)
+	@echo [INFO]: $(OBJS) compiled succesfully
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
@@ -83,10 +78,13 @@ depend: $(SRCS)
 	makedepend $(INCLUDES) $^
 
 # DO NOT DELETE THIS LINE -- make depend needs it
+
 scheduler.o: ../include/scheduler.h ../include/allocation.h
 scheduler.o: ../include/request.h
 scheduler_null.o: ../include/scheduler_null.h ../include/scheduler.h
 scheduler_null.o: ../include/allocation.h ../include/request.h
+scheduler_fg.o: ../include/scheduler_fg.h ../include/scheduler.h
+scheduler_fg.o: ../include/allocation.h ../include/request.h
 tester.o: ../include/tester.h ../include/allocation.h ../include/pattern.h
 tester.o: ../include/request.h ../include/scheduler.h
-tester.o: ../include/scheduler_null.h
+tester.o: ../include/scheduler_null.h ../include/scheduler_fg.h

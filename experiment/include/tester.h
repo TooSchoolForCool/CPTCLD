@@ -12,6 +12,7 @@
 #include "request.h"
 #include "scheduler.h"
 #include "scheduler_null.h"
+#include "scheduler_fg.h"
 
 using namespace std;
 

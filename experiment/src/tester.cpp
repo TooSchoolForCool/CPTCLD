@@ -83,6 +83,7 @@ vector<Allocation> Tester::GetAllocation(string scheduling_algorithm) {
     // Example - to add a new class SchedulerNaive must add here:
     //  else if (scheduling_algorithm == "naive") scheduler = new SchedulerNaive(num_channel, rb_time, rb_size, rb_bandwidth);
     if (scheduling_algorithm == "null") scheduler = new SchedulerNull(num_channel, rb_time, rb_size, rb_bandwidth);
+    else if (scheduling_algorithm == "fg") scheduler = new SchedulerFairGreedy(num_channel, rb_time, rb_size, rb_bandwidth);
     else scheduler = new Scheduler(num_channel, rb_time, rb_size, rb_bandwidth);
 
     vector<Allocation> allocations = scheduler->GetAllocation(requests, utility_rate);
