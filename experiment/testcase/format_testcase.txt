@@ -1,11 +1,11 @@
 // [num_channel]
-5
-// [RB_time] [RB_size] [RB_bandwidth]
-1 40 40
+8
+// [RB_time] [RB_size] [RB_rate]
+1 100 100
 
 // [num_pattern]
 5
-// [type] [priority] [bandwidth] [delay] [max_req_size] [price_RB]
+// [type] [priority] [rate] [interval] [max_req_size] [price_RB]
 Stream1 1 20 20 100 0
 Stream2 2 100 20 200 2
 Messgae1 1 10 0 40 0
