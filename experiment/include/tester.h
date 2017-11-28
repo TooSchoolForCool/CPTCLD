@@ -29,14 +29,14 @@ private:
     int num_pattern;
     int num_ue;
     int num_request;
-    // Attributes of RB (rb_size = rb_bandwidth * rb_time)
+    // Attributes of RB (rb_size = rb_rate * rb_time)
     double rb_time;
     double rb_size;
-    double rb_bandwidth;
+    double rb_rate;
     // Traffic pattern table maps pattern name to the pattern properties
     unordered_map<string, Pattern> traffic_pattern_table;
     // Utility rate indicates the effectiveness of a UE using RB (e.g., a UE with utility rate of 0.50 can only successfully use half the RB allocated to it)
-    unordered_map<int, double> utility_rate;
+    unordered_map<int, double> utility;
     vector<Request> requests;
     // The claimed usage is the requested traffic pattern name of a UE.
     // The actual usage is the actual used traffic pattern of a UE.

@@ -8,14 +8,14 @@
 //
 // Example:
 //  Scheduler* scheduler = new SchedulerNull();
-//  vector<Allocation> allocations = scheduler->GetAllocation(requests, utility_rate);
+//  vector<Allocation> allocations = scheduler->GetAllocation(requests, utility);
 //  delete scheduler;
 class SchedulerNull: public Scheduler {
 public:
-    SchedulerNull(int _num_channel, double _rb_time, double _rb_size, double _rb_bandwidth);
+    SchedulerNull(int _num_channel, double _rb_time, double _rb_size, double _rb_rate);
 
     // Returns the allocation vector which contains empty allocations for every request in requests.
-    vector<Allocation> GetAllocation(vector<Request>& requests, unordered_map<int, double>& utility_rate);
+    vector<Allocation> GetAllocation(vector<Request>& requests, unordered_map<int, double>& utility);
 };
 
 #endif
