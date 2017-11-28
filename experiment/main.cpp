@@ -16,20 +16,15 @@ int main(int argc, char* argv[]) {
     Tester tester;
     cout << "CPTCLD test initiated." << endl;
 
-    string testcase_path = "./testcase/";
-    string testresult_path = "./testresult/";
-    cout << "Default testcase path: " << testcase_path << endl;
-    cout << "Default testresult path: " << testresult_path << endl;
-
     int i = 0;
     for (;i < argc - 1; i++) arg[i] = argv[i + 1];
     int arg_start = i;
 
-    if (arg_start == 3) tester.RunTest(arg[0], testcase_path + arg[1], testresult_path + arg[2]);
+    if (arg_start == 3) tester.RunTest(arg[0], arg[1], arg[2]);
     else if (arg_start == 2) {
         cout << "Testresult: ";
         cin >> arg[2];
-        tester.RunTest(arg[0], testcase_path + arg[1], testresult_path + arg[2]);
+        tester.RunTest(arg[0], arg[1], arg[2]);
     }
     else {
         while (true) {
@@ -42,7 +37,7 @@ int main(int argc, char* argv[]) {
                     return 0;
                 }
             }
-            tester.RunTest(arg[0], testcase_path + arg[1], testresult_path + arg[2]);
+            tester.RunTest(arg[0], arg[1], arg[2]);
         }
     }
 
