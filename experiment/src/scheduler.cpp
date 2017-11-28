@@ -6,3 +6,5 @@ Scheduler::Scheduler(int _num_channel, double _rb_time, double _rb_size, double 
 vector<Allocation> Scheduler::GetAllocation(vector<Request>& requests, unordered_map<int, double>& utility_rate) {
     return vector<Allocation>(requests.size());
 }
+
+Scheduler::~Scheduler() {}

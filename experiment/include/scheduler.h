@@ -29,7 +29,7 @@ protected:
 
 public:
     Scheduler(int _num_channel, double _rb_time, double _rb_size, double _rb_bandwidth);
-
+    virtual ~Scheduler();
     // Interface of the Scheduling Algorithm.
     // Should be overrided in derived SchedulerXXX class.
     // Returns the allocation vector of the same size of requests, in which each allocations[i] corresponds to requests[i].
