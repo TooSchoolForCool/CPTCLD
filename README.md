@@ -17,11 +17,11 @@ CPTCLD aims at reducing charging loss in LTE D2D communication caused by users' 
 
 ## Three Main Parts of CPTCLD
 ### 1.  Traffic Pattern Table
-CPTCLD classifies traffic patterns in LTE D2D communication into three main categories: Stream, Message and File, which are further classified into different subtypes (e.g., Stream1, Stream2, Stream3...). Every entry in the Traffic Pattern Table contains the specific pattern type and its attributes (e.g., Priority, Bandwidth, Delay, MaxReqSize, Price/RB). Here is and example of Traffic Pattern Table we used for our experiment:
+CPTCLD classifies traffic patterns in LTE D2D communication into three main categories: Stream, Message and File, which are further classified into different subtypes (e.g., Stream1, Stream2, Stream3...). Every entry in the Traffic Pattern Table contains the specific pattern type and its attributes (e.g., Priority, Rate, Interval, MaxReqSize, Price/RB). Here is and example of Traffic Pattern Table we used for our experiment:
 
 | Classification || Attributes |||||
 | :---: | :---: | --- | --- | --- | --- | --- |
-| **Category** | **Type** | **Priority** | **BandWidth** | **Delay** | **MaxReqSize** | **Price/RB** |
+| **Category** | **Type** | **Priority** | **Rate** | **Interval** | **MaxReqSize** | **Price/RB** |
 | Stream | 1 | 1 | 20 | 20 | 100 | 0 |
 | Stream | 2 | 2 | 100 | 20 | 200 | 2 |
 | Stream | ... |
@@ -33,8 +33,8 @@ CPTCLD classifies traffic patterns in LTE D2D communication into three main cate
 
 In the example, the meaning of the attributes are following:
 - Priotity - The priority of being considered by Scheduler when performing RB allocation (e.g., Stream1 of Priority 1 will be considered prior to Stream2 of Priority 2).
-- Bandwidth - The requested bandwidth (e.g., File1 of Bandwidth 200 requested to be allocated RB that satisify 200 bandwidth units). 
-- Delay - The max delay between burst transmission (e.g., Stream1 of Delay 20 requested to be allocated RB in every period of 20 time units).
+- Rate - The requested Rate (e.g., File1 of Rate 200 requested to be allocated RB that satisify 200 Rate units). 
+- Interval - The max interval time between burst transmission (e.g., Stream1 of Interval 20 requested to be allocated RB in every period of 20 time units).
 - MaxReqSize - The maximum requested size (e.g., every single request of Stream2 can't claim more RB than what makes up 200 size units. If the UE needs more than 200-unit size of Stream2, it needs to request more than once).
 
 **Note that the format of the table is not final. In practice, the table can be extended by adding more categories, types or attributes.**

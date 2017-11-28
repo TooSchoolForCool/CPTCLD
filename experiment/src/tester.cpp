@@ -26,7 +26,7 @@ int Tester::RunTest(string scheduling_algorithm, string testcase_file, string re
 int Tester::ReadTestcase(string testcase_file) {
     // Clear all the complex variables before reading.
     traffic_pattern_table.clear();
-    utility_rate.clear();
+    utility.clear();
     requests.clear();
     claimed_usage.clear();
     actual_usage.clear();
@@ -39,26 +39,26 @@ int Tester::ReadTestcase(string testcase_file) {
 
     // Start reading from testcase file.
     testcase >> num_channel;
-    testcase >> rb_time >> rb_size >> rb_bandwidth;
+    testcase >> rb_time >> rb_size >> rb_rate;
 
     testcase >> num_pattern;
     string type;
     int priority;
-    double bandwidth;
-    double delay;
+    double rate;
+    double interval;
     double max_req_size;
     double price_rb;
     for (int i = 0; i < num_pattern; i++) {
-        testcase >> type >> priority >> bandwidth >> delay >> max_req_size >> price_rb;
-        traffic_pattern_table[type] = Pattern(priority, bandwidth, delay, max_req_size, price_rb);
+        testcase >> type >> priority >> rate >> interval >> max_req_size >> price_rb;
+        traffic_pattern_table[type] = Pattern(priority, rate, interval, max_req_size, price_rb);
     }
 
     testcase >> num_ue;
     int id;
-    double rate;
+    double utility_rate;
     for (int i = 0; i < num_ue; i++) {
-        testcase >> id >> rate;
-        utility_rate[id] = rate;
+        testcase >> id >> utility_rate;
+        utility[id] = utility_rate;
     }
 
     testcase >> num_request;
@@ -68,7 +68,7 @@ int Tester::ReadTestcase(string testcase_file) {
     for (int i = 0; i < num_request; i++) {
         testcase >> time >> id >> claimed >> size >> actual;
         size = min(traffic_pattern_table[claimed].max_req_size, size);
-        requests.push_back(Request(time, id, traffic_pattern_table[claimed].priority, traffic_pattern_table[claimed].bandwidth, traffic_pattern_table[claimed].delay, size));
+        requests.push_back(Request(time, id, traffic_pattern_table[claimed].priority, traffic_pattern_table[claimed].rate, traffic_pattern_table[claimed].interval, size));
         claimed_usage.push_back(claimed);
         actual_usage.push_back(actual);
     }
@@ -81,11 +81,11 @@ vector<Allocation> Tester::GetAllocation(string scheduling_algorithm) {
     // When a new scheduling algorithm is added, it must be included here.
     //
     // Example - to add a new class SchedulerNaive must add here:
-    //  else if (scheduling_algorithm == "naive") scheduler = new SchedulerNaive(num_channel, rb_time, rb_size, rb_bandwidth);
-    if (scheduling_algorithm == "null") scheduler = new SchedulerNull(num_channel, rb_time, rb_size, rb_bandwidth);
-    else scheduler = new Scheduler(num_channel, rb_time, rb_size, rb_bandwidth);
+    //  else if (scheduling_algorithm == "naive") scheduler = new SchedulerNaive(num_channel, rb_time, rb_size, rb_rate);
+    if (scheduling_algorithm == "null") scheduler = new SchedulerNull(num_channel, rb_time, rb_size, rb_rate);
+    else scheduler = new Scheduler(num_channel, rb_time, rb_size, rb_rate);
 
-    vector<Allocation> allocations = scheduler->GetAllocation(requests, utility_rate);
+    vector<Allocation> allocations = scheduler->GetAllocation(requests, utility);
     delete scheduler;
     return allocations;
 }
