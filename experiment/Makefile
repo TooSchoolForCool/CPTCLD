@@ -60,10 +60,10 @@ SRCS = $(wildcard *.cpp)
 OBJS = $(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 
 # define dependent object files
-DEPEND_OBJS = $(wildcard $(DEPEND_OBJS_DIR)/*.o)
+DEPEND_SRCS := $(wildcard $(DEPEND_SRCS_DIR)/*.cpp)
 
 # define dependent object files
-DEPEND_SRCS := $(wildcard $(DEPEND_SRCS_DIR)/*.cpp)
+DEPEND_OBJS = $(DEPEND_SRCS:src/%.cpp=$(DEPEND_OBJS_DIR)/%.o)
 
 # define the executable file 
 TARGET = launch
@@ -80,7 +80,7 @@ all: $(TARGET)
 	
 $(TARGET): $(OBJS) $(DEPEND_SRCS)
 	$(MAKE) -C $(DEPEND_SRCS_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(TARGET) $(OBJS) $(DEPEND_SRCS) $(LFLAGS) $(LIBS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(TARGET) $(OBJS) $(DEPEND_OBJS) $(LFLAGS) $(LIBS)
 	@echo [INFO]: $(TARGET) has been succesfully compiled
 
 # this is a suffix replacement rule for building .o's from .c's
