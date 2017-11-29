@@ -8,5 +8,3 @@ Scheduler::~Scheduler() {}
 vector<Allocation> Scheduler::GetAllocation(vector<Request>& requests, unordered_map<int, double>& utility) {
     return vector<Allocation>(requests.size());
 }
-
-Scheduler::~Scheduler() {}

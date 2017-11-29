@@ -8,7 +8,6 @@
 #include "scheduler.h"
 
 #define DEBUG
-#define MAX_TIME_SLOTS 100
 
 #ifdef DEBUG
 
@@ -32,32 +31,41 @@ public:
     vector<Allocation> GetAllocation(vector<Request>& requests, unordered_map<int, double>& utility_rate);
 
 private:
-    void ReorderRequest(vector<Request> &vec, unordered_map<int, double>& utility_rate);
+    vector<int> ReorderRequest(vector<Request> &vec, unordered_map<int, double>& utility_rate, int &num_of_request);
 
     vector<Request> GetNextRequests(queue<Request> &q);
 
-    void Allocate(vector<Request> &vec, vector<Allocation> &alloc);
+    void Allocate(vector<Request> &vec, vector<Allocation> &alloc, vector<int> &index);
+
+    bool CompeteRB(Request &req);
+
+    void Refresh(int current_time);
 
 private:
-    // define maximum allocation size
-    double max_alloc_size;
     // store the timestamp of first RB
-    int time_shift;
+    int timestamp;
     // maximum number of time slots in block frame
     int max_time_slots;
-
+    // the maximum ratio of a request that can acquire w.r.t the total RBs
+    // in its time interval
+    // ratio = size * interval / rb_size * num_channel * interval
+    double alloc_threshold;
+    // max number of intervals allocated
+    int max_intervals;
+    // record num of blocks that assigned to a specific user
     map<int, double> alloc_record;
     
     vector<vector<bool> > block_frame;
+    vector<int> rb_available;
 };
 
 struct RequestPriority {
     int index;
     double priority;
-    double bandwidth;
+    double rate;
 
-    RequestPriority(int _index = 0, int _priority = 0, double _bandwidth = 0):
-        index(_index), priority(_priority), bandwidth(_bandwidth) {} 
+    RequestPriority(int _index = 0, int _priority = 0, double _rate = 0):
+        index(_index), priority(_priority), rate(_rate) {} 
 };
 
 #endif
