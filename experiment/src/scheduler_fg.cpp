@@ -19,10 +19,8 @@ SchedulerFairGreedy::SchedulerFairGreedy(int _num_channel, double _rb_time, doub
         this->alloc_threshold = 0.1;
         this->max_intervals = 5;
 
-        rb_available.resize(this->max_time_slots, 0);
-
         for(int i = 0; i < num_channel; i++)
-            block_frame.push_back(vector<bool>(this->max_time_slots, false));
+            this->block_frame.push_back(vector<bool>(this->max_time_slots, false));
 }
 
 vector<Allocation> SchedulerFairGreedy::GetAllocation(vector<Request>& requests, unordered_map<int, double>& utility_rate) {
@@ -130,9 +128,9 @@ void SchedulerFairGreedy::Allocate(vector<Request> &vec, vector<Allocation> &all
             {
                 for(int j = 0; j < this->num_channel && blocks_remained != 0; j++)
                 {
-                    if(!block_frame[j][i] || this->CompeteRB(vec[k]))
+                    if(!this->block_frame[j][i] || this->CompeteRB(vec[k]))
                     {
-                        block_frame[j][i] = true;
+                        this->block_frame[j][i] = true;
                         new_alloc.add(j, i + this->timestamp, 1);
                         blocks_remained--;
                     }
@@ -165,13 +163,13 @@ void SchedulerFairGreedy::Refresh(int current_time) {
     for(int i = 0; i < refresh_end; i++)
     {
         for(int j = 0; j < this->num_channel; j++)
-            block_frame[j][i] = block_frame[j][i + time_gap];
+            this->block_frame[j][i] = this->block_frame[j][i + time_gap];
     }
 
     // "append" more avaible blocks at the end of the block_frame
     for(int i = refresh_end; i < this->max_time_slots; i++)
     {
         for(int j = 0; j < this->num_channel; j++)
-            block_frame[j][i] = false;
+            this->block_frame[j][i] = false;
     }
 }

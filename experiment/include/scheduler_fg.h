@@ -52,10 +52,12 @@ private:
     double alloc_threshold;
     // max number of intervals allocated
     int max_intervals;
+
     // record num of blocks that assigned to a specific user
     map<int, double> alloc_record;
-    
+    // store block frame
     vector<vector<bool> > block_frame;
+    // store how many RBs availabel before current position
     vector<int> rb_available;
 };
 
