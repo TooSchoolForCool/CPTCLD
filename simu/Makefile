@@ -95,12 +95,6 @@ $(OBJS_DIR)/%.o: %.cpp
 run: $(TARGET)
 	./$(TARGET)
 
-run_null: $(TARGET)
-	./$(TARGET) null ./testcase/testcase_0.txt ./testresult/testresult_0_null.txt
-
-run_fg: $(TARGET)
-	./$(TARGET) fg ./testcase/testcase_0.txt ./testresult/testresult_0_fg.txt
-
 clean:
 	$(RM) -f $(OBJS_DIR)/*.o $(TARGET)
 	$(RM) -r $(OBJS_DIR)
