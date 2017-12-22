@@ -92,8 +92,20 @@ $(OBJS_DIR)/%.o: %.cpp
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-run: $(TARGET)
-	./$(TARGET)
+runn: $(TARGET)
+	./$(TARGET) < normal-user.txt > normal-user-charge.txt
+	@cat normal-user-charge.txt
+	@python3 plot.py < normal-user-charge.txt
+
+rund: $(TARGET)
+	./$(TARGET) < dump-cheater.txt > dump-cheater-charge.txt
+	cat dump-cheater-charge.txt
+	@python3 plot.py < dump-cheater-charge.txt
+
+runs: $(TARGET)
+	./$(TARGET) < smart-cheater.txt > smart-cheater-charge.txt
+	cat smart-cheater-charge.txt
+	python3 plot.py < smart-cheater-charge.txt
 
 clean:
 	$(RM) -f $(OBJS_DIR)/*.o $(TARGET)
@@ -106,6 +118,5 @@ depend: $(SRCS)
 
 # DO NOT DELETE THIS LINE -- make depend needs it
 
-main.o: ./include/tester.h ./include/allocation.h ./include/pattern.h
-main.o: ./include/request.h ./include/scheduler.h ./include/scheduler_null.h
-main.o: ./include/scheduler_fg.h
+main.o: ./include/eNodeB.h ./include/request.h ./include/normalUser.h
+main.o: ./include/userAgent.h

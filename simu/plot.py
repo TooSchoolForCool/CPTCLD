@@ -27,7 +27,7 @@ def plot(x, y1, y2):
     ax.set_ylabel(r"Actual Usage")
     ax2.set_ylabel(r"Current Balance")
 
-    ax2.set_ylim(0, (y1[cnt - 1] + 100) / 180)
+    ax2.set_ylim(0, (y1[cnt - 1] + 100) / 100)
     ax.set_ylim(0, y1[cnt - 1] + 100)
 
     plt.show()
@@ -36,11 +36,15 @@ def readIn():
     cnt = 0
     y1, y2 = [0], [0]
     while(True):
-        # balance, actual usage, util rate
-        tmp1, tmp2, tmp3 = map(float, input().split())
+        in_str = input().split();
 
-        if(tmp1 == -1):
+        if(in_str[0] == "-1"):
             break
+        elif(in_str[0] != "[INFO]"):
+            continue
+            
+        # balance, actual usage, util rate
+        tmp1, tmp2 = map(float, in_str[1:-1])
 
         y1.append(tmp1)
         y2.append(tmp2)
